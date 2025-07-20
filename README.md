@@ -39,14 +39,6 @@ Serve the Static Files:
 
 Ensure Python is installed.
 
-Run a local HTTP server:
-
-python -m http.server 8000
-
-
-
-Access the App:
-Open http://localhost:8000/ in a browser.
 
 Contributors
 
