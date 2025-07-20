@@ -25,7 +25,7 @@ Tech Stack
 
 Frontend: HTML, CSS (Bootstrap 5.3), JavaScript
 
-Planned Backend: Flask, SQLite, Flask-SQLAlchemy, Flask-Login
+Planned Backend: Flask, Mysql, Flask-SQLAlchemy, Flask-Login
 
 
 Setup Instructions
