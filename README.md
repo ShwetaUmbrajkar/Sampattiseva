@@ -1,25 +1,21 @@
-SAMPATTISEVA
+🛠️ SAMPATTISEVA – ScrapConnect
 
-Overview
+📌 Overview
+ScrapConnect is a web-based platform developed to streamline and digitize the scrap (raddi) recycling process in India. It aims to bridge the gap between households and local scrap collectors (raddi walas) by enabling users to list their scrap items online and schedule pickups, while providing raddi walas access to nearby collection opportunities.
+This prototype was built during a hackathon, featuring a responsive front-end user dashboard with mock data. A complete backend and AI-powered matching system are part of the future roadmap.
 
-ScrapConnect is a web platform designed to streamline scrap recycling in India by connecting households with raddi walas (scrap collectors). Users can list scrap items (e.g., newspapers, plastics, electronics), view estimated prices, and schedule pickups, while raddi walas can access jobs efficiently. This project was developed for a hackathon, showcasing a user dashboard with mock data, with plans to add a full backend and AI-driven matching in the future.
+🚮 Problem
+India generates 62 million tons of waste every year, yet only 15% is recycled effectively. The core issues include:
 
-Problem
+Lack of structured platforms for households to reach scrap collectors.
+Missed economic potential from recyclable materials.
+Increased pressure on landfills and the environment.
+💡 Solution
+ScrapConnect proposes a digital solution to transform scrap management through:
 
-India generates 62 million tons of waste annually, but only 15% is recycled due to inefficient connections between households and raddi walas. This leads to landfill overflow and lost economic opportunities.
-
-Solution
-
-ScrapConnect provides:
-A user dashboard to log in, list scrap items, and view estimated prices.
-A planned raddi wala dashboard to view and accept nearby scrap jobs.
-Future AI integration to match users with collectors based on location and scrap type.
-
-Features (Current Demo)
-Login Page: Users can log in.
-User Dashboard: Displays listed scrap items (e.g., newspaper, plastic) with weights and estimated prices.
-List Item: Users can add new scrap items, which appear instantly on the dashboard.
-Built with HTML, CSS (Bootstrap), and JavaScript for a front-end-only demo.
+A User Dashboard for logging in, listing scrap items (e.g., newspapers, plastic, electronics), and viewing estimated resale prices.
+A planned Raddi Wala Dashboard to help scrap collectors view, accept, and manage pickup requests.
+Future integration of AI-based matching to connect users and collectors based on scrap type, location, and availabilit
 
 Tech Stack
 
