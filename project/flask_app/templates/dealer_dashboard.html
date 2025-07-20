@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sampatiseva Dealer Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to right, #eef2f5, #f7f9fc);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 30px;
+            background: linear-gradient(to right, #ffffff, #e0f2f1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: bold;
+            color: #00695c;
+        }
+
+        .user-info {
+            font-size: 15px;
+        }
+
+        .container {
+            padding: 40px 30px;
+        }
+
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 14px;
+            border: 1px solid #e0e0e0;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #00695c;
+            color: white;
+        }
+
+        .status-approved {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            color: #f39c12;
+            font-weight: bold;
+        }
+
+        .upload-section {
+            margin-top: 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .upload-section h2 {
+            margin-top: 0;
+            color: #00695c;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group input[type="file"] {
+            padding: 8px;
+        }
+
+        .form-group button {
+            padding: 10px 18px;
+            background-color: #009688;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-group button:hover {
+            background-color: #00796b;
+        }
+
+        .result-img {
+            max-width: 100%;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .summary-table {
+            margin-top: 30px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .summary-table th, .summary-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        .summary-table th {
+            background-color: #00695c;
+            color: white;
+        }
+
+        .total-row {
+            font-weight: bold;
+            color: #2ecc71;
+        }
+
+        .reward-msg {
+            margin-top: 20px;
+            color: #27ae60;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .editable {
+            background-color: #fcfcfc;
+        }
+
+        .editable:focus {
+            outline: 2px solid #80cbc4;
+        }
+
+        @media (max-width: 768px) {
+            .summary-table, table {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="brand">Sampatiseva</div>
+    <div class="user-info">Welcome, {{ username }} (Dealer)</div>
+</div>
+
+<div class="container">
+    <h2>Assigned Scrap Pickups</h2>
+
+    {% if assigned_items %}
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Item Type</th>
+                <th>Weight (kg)</th>
+                <th>Seller</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in assigned_items %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ item.item_type }}</td>
+                <td contenteditable="true" class="editable">{{ item.weight }}</td>
+                <td>{{ item.seller }}</td>
+                <td class="status-{{ item.status }}">{{ item.status.capitalize() }}</td>
+                <td>{{ item.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No pickups assigned yet.</p>
+    {% endif %}
+
+    <!-- ML Upload Section -->
+    <div class="upload-section">
+        <h2>Detect Scrap Items (ML)</h2>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="image">Upload Scrap Image:</label><br>
+                <input type="file" name="image" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Upload & Detect</button>
+                <button type="button" onclick="alert('Camera integration requires webcam access')">Click Image</button>
+            </div>
+        </form>
+
+        {% if result_image %}
+        <h3>Prediction Result:</h3>
+        <img class="result-img" src="{{ url_for('static', filename='results/' ~ result_image) }}" alt="Detected Image">
+        {% endif %}
+
+        {% if cost_summary %}
+        <h3 style="color: #00695c;">Estimated Cost Summary 💰</h3>
+        <table class="summary-table">
+            <thead>
+                <tr>
+                    <th>Material</th>
+                    <th>Count</th>
+                    <th>Weight (kg)</th>
+                    <th>Estimated Cost (₹)</th>
+                </tr>
+            </thead>
+            <tbody id="summary-body">
+                {% for material, details in cost_summary.items() %}
+                <tr data-material="{{ material }}">
+                    <td>{{ material.capitalize() }}</td>
+                    <td>{{ details.count }}</td>
+                    <td contenteditable="true" class="editable editable-weight" oninput="updateCost(this)">
+                        {{ details.weight }}
+                    </td>
+                    <td contenteditable="true" class="editable editable-cost" oninput="updateGrandTotal()">
+                        {{ details.cost }}
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr class="total-row">
+                    <td colspan="3">Grand Total (₹)</td>
+                    <td id="grand-total">0</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="reward-msg">🎁 +1 Token Rewarded for this detection!</div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    const ratePerKg = {
+        plastic: 10,
+        metal: 20,
+        glass: 5,
+        paper: 8,
+        aluminum: 30
+    };
+
+    function updateCost(weightCell) {
+        const row = weightCell.closest("tr");
+        const material = row.getAttribute("data-material");
+        const rate = ratePerKg[material.toLowerCase()] || 0;
+        const weight = parseFloat(weightCell.textContent.trim());
+        if (!isNaN(weight)) {
+            const costCell = row.querySelector(".editable-cost");
+            const calculatedCost = (weight * rate).toFixed(2);
+            costCell.textContent = calculatedCost;
+        }
+        updateGrandTotal();
+    }
+
+    function updateGrandTotal() {
+        const costCells = document.querySelectorAll('.editable-cost');
+        let grandTotal = 0;
+        costCells.forEach(cell => {
+            const value = parseFloat(cell.textContent.trim());
+            if (!isNaN(value)) {
+                grandTotal += value;
+            }
+        });
+        document.getElementById('grand-total').textContent = grandTotal.toFixed(2);
+    }
+
+    window.addEventListener('DOMContentLoaded', updateGrandTotal);
+</script>
+
+</body>
+</html>

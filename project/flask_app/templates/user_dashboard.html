@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to right, #eef2f5, #f7f9fc);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 30px;
+            background: linear-gradient(to right, #ffffff, #e0f2f1);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+        }
+
+        .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: bold;
+            color: #00695c;
+            letter-spacing: 1px;
+        }
+
+        .user-info {
+            font-size: 15px;
+            color: #333;
+        }
+
+        .logout-btn {
+            background-color: #009688;
+            color: white;
+            border: none;
+            padding: 7px 14px;
+            font-size: 13px;
+            margin-left: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #00796b;
+        }
+
+        .main-layout {
+            display: flex;
+            max-width: 100%;
+        }
+
+        .left-panel {
+            flex: 2;
+            display: grid;
+            gap: 25px;
+            grid-template-columns: 1fr;
+            padding: 40px 30px;
+        }
+
+        .right-panel {
+            flex: 1;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff; /* changed to white */
+            animation: float 6s ease-in-out infinite;
+            text-align: center;
+            padding: 40px;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .caption {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            color: #004d40;
+            font-weight: bold;
+            line-height: 1.5;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease-in-out;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            color: #00695c;
+            font-size: 22px;
+        }
+
+        .card p, .card li {
+            color: #444;
+            font-size: 14px;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #009688;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 150, 136, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: #009688;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00796b;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #00695c;
+            color: white;
+        }
+
+        .status-approved {
+            color: green;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .scrap-item {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            margin-top: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .scrap-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .scrap-item p {
+            margin: 6px 0;
+        }
+
+        .scrap-item hr {
+            margin-top: 10px;
+            border: 0;
+            border-top: 1px solid #ddd;
+        }
+
+        a {
+            color: #009688;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 900px) {
+            .main-layout {
+                flex-direction: column;
+            }
+
+            .right-panel {
+                position: relative;
+                height: auto;
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .topbar {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="brand">SAMPATTISEVA</div>
+    <div class="user-info">
+        Welcome, {{ username }}
+        <form action="{{ url_for('logout') }}" method="POST" style="display: inline;">
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    </div>
+</div>
+
+<div class="main-layout">
+
+    <!-- Left Panel -->
+    <div class="left-panel">
+
+        <!-- Upload Scrap Item -->
+        <div class="card">
+            <h3>Upload Scrap Item</h3>
+            <form action="{{ url_for('upload_scrap') }}" method="POST">
+                <div class="form-group">
+                    <label>Item Type</label>
+                    <select name="item_type" required>
+                        <option value="Plastic Bottles">Plastic Bottles</option>
+                        <option value="Newspapers">Newspapers</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Glass">Glass</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Weight (kg)</label>
+                    <input type="number" name="weight" step="0.1" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" rows="3" required></textarea>
+                </div>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+
+        <!-- Scrap History -->
+        <div class="card">
+            <h3>Your Scrap Listings</h3>
+            <form method="GET" action="{{ url_for('user_dashboard') }}">
+                <button type="submit">🔄 Refresh Status</button>
+            </form>
+            <table>
+                <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Weight</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in scrap_items %}
+                    <tr>
+                        <td>{{ item.item_type }}</td>
+                        <td>{{ item.weight }} kg</td>
+                        <td>
+                            {% if item.status == 'approved' %}
+                                <span class="status-approved">Approved</span>
+                            {% elif item.status == 'pending' %}
+                                <span class="status-pending">Pending</span>
+                            {% else %}
+                                <span style="color: red;">Unknown</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ item.created_at }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+       <!-- Environmental Impact -->
+<div class="card">
+    <h3>Environmental Impact</h3>
+    <ul>
+        <li>Total Waste Recycled: {{ total_weight }} kg</li>
+        <li>Estimated CO₂ Saved: {{ total_co2_saved }} kg</li>
+    </ul>
+</div>
+
+<!-- Rewards -->
+<div class="card">
+    <h3>Your Rewards</h3>
+    <ul>
+        <li>Points: {{ reward_points }}</li>
+        <li>Badges Earned: {{ badges }}</li>
+        <li><a href="{{ url_for('redeem_center') }}">View Redeem Center</a></li>
+
+    </ul>
+</div>
+
+
+        <!-- Dealer Info -->
+        {% for item in scrap_items %}
+        <div class="scrap-item">
+            <p><strong>Item:</strong> {{ item.item_type }}</p>
+            <p><strong>Weight:</strong> {{ item.weight }} kg</p>
+            <p><strong>Status:</strong> {{ item.status.capitalize() }}</p>
+            <p><strong>Date:</strong> {{ item.created_at }}</p>
+            {% if item.status == 'picked' and item.dealer_name %}
+                <p style="color:green;"><strong>Picked up by:</strong> {{ item.dealer_name }} (📞 {{ item.dealer_contact }})</p>
+            {% elif item.dealer_name %}
+                <p><strong>Dealer Assigned:</strong> {{ item.dealer_name }} (📞 {{ item.dealer_contact }})</p>
+            {% else %}
+                <p><em>No dealer assigned yet.</em></p>
+            {% endif %}
+            <hr>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <!-- Right Panel Caption -->
+    <div class="right-panel">
+        <div class="caption">
+            Every scrap you recycle brings us one step closer to a greener future.  
+            <br><br>
+            
+            <br><br>
+            Together, our small actions create big change. Let’s make sustainability a lifestyle, not a choice.
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

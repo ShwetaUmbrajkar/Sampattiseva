@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | Sampattiseva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to right, #e0f7fa, #fce4ec);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            max-width: 1200px;
+            width: 95%;
+            backdrop-filter: blur(10px);
+        }
+
+        .login-form {
+            padding: 50px 40px;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-form h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 40px;
+            color: #004d40;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .login-form h2 {
+            font-size: 22px;
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: 0.2s ease;
+        }
+
+        .login-form input:focus {
+            border-color: #009688;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 150, 136, 0.1);
+        }
+
+        .login-form button {
+            padding: 14px;
+            background: linear-gradient(to right, #009688, #00796b);
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .login-form button:hover {
+            background: linear-gradient(to right, #00796b, #004d40);
+        }
+
+        .login-form p {
+            margin-top: 14px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .login-form a {
+            color: #00695c;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-form a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .video-section {
+            background: linear-gradient(to bottom right, #e0f2f1, #ffffff);
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+            overflow-y: auto;
+            max-height: 100vh;
+        }
+
+        .video-section iframe {
+            width: 100%;
+            height: 250px;
+            border-radius: 16px;
+            border: none;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        @media (max-width: 900px) {
+            .login-container {
+                grid-template-columns: 1fr;
+                max-height: none;
+                border-radius: 0;
+            }
+
+            .video-section {
+                max-height: unset;
+                height: auto;
+            }
+
+            .video-section iframe {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <!-- Form Section -->
+    <div class="login-form">
+        <h1>SAMPATTISEVA</h1>
+        <h2>Login to Your Account</h2>
+        <form method="post">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="{{ url_for('signup') }}">Sign up</a></p>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+
+    <!-- Video Section -->
+    <div class="video-section">
+        <iframe 
+            src="https://www.youtube.com/embed/7UM73CEvwMY" 
+            title="How Plastic is Recycled"
+            allowfullscreen loading="lazy">
+        </iframe>
+
+        <iframe 
+            src="https://www.youtube.com/embed/6tpmT9JdGFc" 
+            title="How Paper is Recycled"
+            allowfullscreen loading="lazy">
+        </iframe>
+
+        <iframe 
+            src="https://www.youtube.com/embed/aaz4Qe6zYyU" 
+            title="How E-Waste is Recycled"
+            allowfullscreen loading="lazy">
+        </iframe>
+    </div>
+</div>
+
+</body>
+</html>

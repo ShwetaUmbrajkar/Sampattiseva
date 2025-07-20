@@ -1,0 +1,74 @@
+<!-- templates/view_listings.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Listings</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+        th {
+            background-color: #003366;
+            color: white;
+        }
+        button {
+            padding: 6px 10px;
+            margin: 2px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .reject {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Scrap Listings</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Item</th>
+                <th>Weight</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in listings %}
+            <tr>
+                <td>{{ item.username }}</td>
+                <td>{{ item.item_type }}</td>
+                <td>{{ item.weight }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.status }}</td>
+                <td>{{ item.created_at }}</td>
+                <td>
+                    {% if item.status != 'approved' %}
+                    <form method="POST" action="{{ url_for('approve_scrap', item_id=item.id) }}">
+                        <button type="submit">Approve</button>
+                    </form>
+                    {% endif %}
+                    {% if item.status != 'pending' %}
+                    <form method="POST" action="{{ url_for('reject_scrap', item_id=item.id) }}">
+                        <button class="reject" type="submit">Reject</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Redeem Center</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f7f9;
+            padding: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #00695c;
+        }
+
+        .tokens {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .plants-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 24px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .plant-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            text-align: center;
+        }
+
+        .plant-card h3 {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .plant-card p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .plant-card button {
+            margin-top: 10px;
+            background-color: #00695c;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .plant-card button:hover {
+            background-color: #004d40;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Redeem Center - Green Rewards 🌱</h2>
+    <div class="tokens">Your Available Tokens: <strong>{{ reward_points }}</strong></div>
+
+    <div class="plants-container">
+        {% for plant in plants %}
+            <div class="plant-card">
+                <h3>{{ plant.name }}</h3>
+                <p>Size: {{ plant.size }}</p>
+                <p>Tokens Required: {{ plant.tokens }}</p>
+                {% if reward_points >= plant.tokens %}
+                    <button>Redeem</button>
+                {% else %}
+                    <button disabled style="background: gray; cursor: not-allowed;">Not Enough Tokens</button>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
