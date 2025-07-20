@@ -48,18 +48,12 @@ python -m http.server 8000
 Access the App:
 Open http://localhost:8000/ in a browser.
 
-Hackathon Context
-
-Developed for a 2025 hackathon with a tight deadline. The Flask backend faced configuration issues (404 errors, database creation), so a static HTML/CSS/JS demo was used to showcase the user dashboard.
-
 Contributors
+
 Shweta Umbrajkar
+
 Karan Kalawant
+
 Kunak Kalawant
+
 Anjali Bhau
-
-Log in with any username (e.g., “test”).
-
-
-
-View the dashboard and list new items.
