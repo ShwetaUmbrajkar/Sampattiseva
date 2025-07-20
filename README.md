@@ -11,39 +11,14 @@ India generates 62 million tons of waste annually, but only 15% is recycled due 
 Solution
 
 ScrapConnect provides:
-
-
-
-
-
 A user dashboard to log in, list scrap items, and view estimated prices.
-
-
-
 A planned raddi wala dashboard to view and accept nearby scrap jobs.
-
-
-
 Future AI integration to match users with collectors based on location and scrap type.
 
 Features (Current Demo)
-
-
-
-
-
-Login Page: Users can log in with any username (mock authentication).
-
-
-
+Login Page: Users can log in.
 User Dashboard: Displays listed scrap items (e.g., newspaper, plastic) with weights and estimated prices.
-
-
-
 List Item: Users can add new scrap items, which appear instantly on the dashboard.
-
-
-
 Built with HTML, CSS (Bootstrap), and JavaScript for a front-end-only demo.
 
 Tech Stack
@@ -57,9 +32,13 @@ Setup Instructions
 Clone the Repository:
 
 git clone https://github.com/ShwetaUmbrajkar/Sampattiseva.git
+
 cd scrapconnect
+
 Serve the Static Files:
+
 Ensure Python is installed.
+
 Run a local HTTP server:
 
 python -m http.server 8000
