@@ -42,6 +42,6 @@ Shweta Umbrajkar
 
 Karan Kalawant
 
-Kunak Kalawant
+Kunal Kalawant
 
 Anjali Bhau
