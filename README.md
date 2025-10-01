@@ -35,4 +35,3 @@ Serve the Static Files:
 
 Ensure Python is installed.
 
-
