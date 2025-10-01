@@ -36,12 +36,3 @@ Serve the Static Files:
 Ensure Python is installed.
 
 
-Contributors
-
-Shweta Umbrajkar
-
-Karan Kalawant
-
-Kunal Kalawant
-
-Anjali Bhau
